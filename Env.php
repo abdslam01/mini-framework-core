@@ -13,8 +13,7 @@ class Env{
      * @return void
      */
     public static function load(){
-        $envFilePath = BASE_DIR."/.env";
-        if(!file_exists($envFilePath))
+        if(!file_exists($envFilePath="./.env") && !file_exists($envFilePath="../.env"))
             throw new Exception(".env file not found");
 
         $content = file_get_contents($envFilePath);
