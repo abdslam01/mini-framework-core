@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Abdslam01\\MiniFrameworkCore\\": "core/"
+            "Abdslam01\\MiniFrameworkCore\\": "."
         }
     }
 }
