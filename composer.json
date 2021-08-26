@@ -1,0 +1,20 @@
+{
+    "name": "abdslam01/miniframeworkcore",
+    "description": "mini framework core using php and mvc structure, with minimum dependencies",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abdessalam Bahafid",
+            "email": "zomiix246@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^8.55",
+        "symfony/console": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abdslam01\\MiniFrameworkCore\\": "core/"
+        }
+    }
+}
