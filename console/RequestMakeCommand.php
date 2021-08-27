@@ -61,7 +61,7 @@ class RequestMakeCommand extends Command
             $file = fopen("$fullRequestName.php", "w+");
             fwrite($file, "<?php
 
-namespace App\controllers".(!empty($namespace)?'\\':'')."$namespace;
+namespace App\https".(!empty($namespace)?'\\':'')."$namespace;
 
 use Abdslam01\MiniFrameworkCore\Https\HttpRequest;
 
