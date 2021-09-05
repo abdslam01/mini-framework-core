@@ -17,8 +17,11 @@ class Response {
         http_response_code($code);
     }
 
-    public function renderView(){
-        echo file_get_contents("$this->path_to_views$this->code.php");
+    public function renderView(string $view = ""){
+        if($this->code<200 || $this->code>299) // means that we've got an error
+            echo file_get_contents("$this->path_to_views$this->code.php");
+        else
+            echo file_get_contents($this->path_to_views.str_replace(".", "/", $view).".php");
         die();
     }
 }
