@@ -2,6 +2,7 @@
 
 namespace Abdslam01\MiniFrameworkCore\Helpers;
 
+use Abdslam01\MiniFrameworkCore\Https\Response;
 use Exception;
 use Abdslam01\MiniFrameworkCore\Route;
 
@@ -56,6 +57,12 @@ class Helpers {
                     }
                 }
                 throw new Exception("\$_ENV[ENV] is not set");
+            }
+        }
+
+        if(!function_exists("view")){
+            function view(string $view){
+                (new Response())->renderView($view);
             }
         }
     }
