@@ -2,6 +2,7 @@
 
 namespace Abdslam01\MiniFrameworkCore;
 
+use Abdslam01\MiniFrameworkCore\Https\Response;
 use Exception;
 
 /**
@@ -120,7 +121,7 @@ class Route {
                 die();
             }
         }
-        header('HTTP/1.0 404 Not Found');
+        (new Response(404))->renderView();
     }
     
     /**

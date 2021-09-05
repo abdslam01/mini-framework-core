@@ -1,6 +1,6 @@
 <?php
 
-namespace Abdslam01\MiniFrameworkCore;
+namespace Abdslam01\MiniFrameworkCore\Https;
 
 use ReflectionMethod;
 use ReflectionFunction;
