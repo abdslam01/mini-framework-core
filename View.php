@@ -15,6 +15,7 @@ class View {
 
             extract($params);
             require_once $final_path_to_views;
+            die();
         }catch(\Exception $e){
             throw new \Exception("Fail to compile the view.\n$e");
         }
