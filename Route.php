@@ -2,6 +2,7 @@
 
 namespace Abdslam01\MiniFrameworkCore;
 
+use Abdslam01\MiniFrameworkCore\Https\Request;
 use Abdslam01\MiniFrameworkCore\Https\Response;
 use Exception;
 
