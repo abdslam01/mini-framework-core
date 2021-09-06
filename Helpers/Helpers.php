@@ -60,9 +60,16 @@ class Helpers {
             }
         }
 
-        if(!function_exists("view")){
-            function view(string $view){
-                (new Response())->renderView($view);
+        if(!function_exists("view")){            
+            /**
+             * view
+             *
+             * @param  mixed $view
+             * @param  mixed $params
+             * @return void
+             */
+            function view(string $view, array $params = []){
+                (new Response())->renderView($view, $params);
             }
         }
     }
