@@ -22,6 +22,9 @@ class View {
         // change {!!$var!!} => <?=$var?\>
         $content = preg_replace("{{!!([^\}]*)!!}}", "<?=$1?>", $content);
 
+        //change @elseif() ==> <?php }elseif(){ ?\>
+        $content = preg_replace("#@elseif(\(.*\))#", "<?php }elseif$1{ ?>", $content);
+
         // change @foreach($data as $d) ... @endforeach => <?php foreach($data as $d) ?\> ... <?php endforeach ?\>
         // same for: @if @else @endif
         // same as: @for(...) @endfor, @while(...) @endwhile
