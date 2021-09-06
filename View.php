@@ -16,8 +16,11 @@ class View {
     public static function compileView(string $path_to_views, array $params){
         $content = file_get_contents($path_to_views);
 
-        // change {{$var}} => <?=$var?\> # yeah, you spelled it write
-        $content = preg_replace("{{{([^\}]*)}}}", "<?=$1?>", $content);
+        // change {{$var}} => <?=htmlspecialchars($var)?\> # yeah, you spelled it write
+        $content = preg_replace("{{{([^\}]*)}}}", "<?=htmlspecialchars($1)?>", $content);
+
+        // change {!!$var!!} => <?=$var?\>
+        $content = preg_replace("{{!!([^\}]*)!!}}", "<?=$1?>", $content);
 
         // change @foreach($data as $d) ... @endforeach => <?php foreach($data as $d) ?\> ... <?php endforeach ?\>
         // same for: @if @else @endif
