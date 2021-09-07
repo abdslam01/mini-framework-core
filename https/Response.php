@@ -10,7 +10,7 @@ class Response {
 
     public function __construct(int $code = 200){
         $this->setStatusCode($this->code = $code);
-        $this->path_to_views = "../ressources/views/";
+        $this->path_to_views = __DIR__."/../../ressources/views/";
         if($code<200 || $code>299) // means that we've got an error
             $this->path_to_views .= "error/";
     }

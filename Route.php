@@ -154,10 +154,10 @@ class Route {
      * @return void
      */
     public static function loadRoutes(){
-        $files = scandir("../route/");
+        $files = scandir(__DIR__."/../route/");
         foreach($files as $file){
             if(substr($file, -4)===".php")
-                require_once "../route/$file";
+                require_once __DIR__."/../route/$file";
         }
     }
 }
