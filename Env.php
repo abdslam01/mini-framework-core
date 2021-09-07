@@ -28,6 +28,5 @@ class Env{
             if($key && isset($value))
             $_ENV["ENV"][trim($key)] = trim($value);
         }
-        print_r($_ENV);
     }
 }
