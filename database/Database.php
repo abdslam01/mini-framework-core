@@ -3,6 +3,8 @@
 namespace Abdslam01\MiniFrameworkCore\Database;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+
+use function Abdslam01\MiniFrameworkCore\Helpers\database_path;
 use function Abdslam01\MiniFrameworkCore\Helpers\env2;
 
 /**
@@ -22,7 +24,9 @@ class Database{
         $this->capsule->addConnection([
             'driver' => env2('driver', 'mysql'),
             'host' => env2('host', 'localhost'),
-            'database' => env2('database', 'mvc_course'),
+            'database' => in_array(env2('driver'), ['sqlite', 'sqlite3'])
+                            ? database_path(env2('database') ?? "db")
+                            : env2('database', 'mvc_course'),
             'username' => env2('username', 'root'),
             'password' => env2('password', ''),
             'charset' => env2('charset', 'utf8'),
