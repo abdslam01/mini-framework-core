@@ -47,15 +47,8 @@ class Helpers {
              * @return void
              */
             function env2(string $key, string $default=null){
-                if(isset($_ENV["ENV"])){
-                    try{
-                        if(isset($_ENV["ENV"][$key]))
-                            return $_ENV["ENV"][$key];
-                        throw new Exception("The environment variable '$key' is not set");
-                    }catch(string $e){
-                        return $default;
-                    }
-                }
+                if(isset($_ENV["ENV"]))
+                    return $_ENV["ENV"][$key] ?? $default;
                 throw new Exception("\$_ENV[ENV] is not set");
             }
         }
@@ -70,6 +63,21 @@ class Helpers {
              */
             function view(string $view, array $params = []){
                 (new Response())->renderView($view, $params);
+            }
+        }
+
+        if(!function_exists("database_path")){                        
+            /**
+             * database_path
+             *
+             * @param  mixed $db_name
+             * @return string
+             */
+            function database_path(string $db_name = "db"){
+                $path = __DIR__."\\..\\..\\app\\database\\".str_replace(".sqlite", "", $db_name).".sqlite";
+                if(!file_exists($path))
+                    touch($path);
+                return $path;
             }
         }
     }
