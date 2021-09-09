@@ -2,6 +2,7 @@
 
 namespace Abdslam01\MiniFrameworkCore\Console;
 
+use Abdslam01\MiniFrameworkCore\Database\MigrationTable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -62,6 +63,8 @@ class MigrationExecuteCommand extends Command
         }
         unset($files);
 
+        $migrationTable = new MigrationTable;
+
         if($input->getOption($this->downCommandOptionName)){ // --down
             rsort($migrationFiles);
             foreach($migrationFiles as $file){
@@ -70,18 +73,31 @@ class MigrationExecuteCommand extends Command
                 (new $pathFile())->down();
                 $output->writeln("table deleted: <info>migration $file successfully executed.</info>");
             }
+            $migrationTable->dropMigrationTable();
+            $output->writeln("<comment>table deleted:</comment> <info>migration table successfully executed.</info>");
 
         }elseif($input->getOption($this->upCommandOptionName)
                 || !($input->getOption($this->downCommandOptionName)
                         && $input->getOption($this->upCommandOptionName))
             ){ // --up or (no argument)
-                foreach($migrationFiles as $file){
-                    sort($migrationFiles);
-                    $pathFile = "App\\database\\migrations\\$file";
-                    $pathFile = str_replace(".php", "", $pathFile);
-                    (new $pathFile())->up();
-                    $output->writeln("table created: <info>migration $file successfully executed.</info>");
-                }
+                if($migrationTable->createMigrationTable())
+                    $output->writeln("<comment>table created:</comment> <info>migration table successfully executed.</info>");
+
+                $migrationFiles = array_diff($migrationFiles, $migrationTable->getAppliedMigrations());
+                if($migrationFiles == [])
+                    $output->writeln("<info>Nothing to migrate...</info>");
+                else
+                    foreach($migrationFiles as $file){
+                        sort($migrationFiles);
+                        $pathFile = "App\\database\\migrations\\$file";
+                        $pathFile = str_replace(".php", "", $pathFile);
+                        (new $pathFile())->up();
+                        $output->writeln("table created: <info>migration $file successfully executed.</info>");
+
+                        $tmpObj = new MigrationTable;
+                        $tmpObj->migration = $file;
+                        $tmpObj->save();
+                    }
         }
         
         return 0;
