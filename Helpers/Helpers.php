@@ -5,6 +5,7 @@ namespace Abdslam01\MiniFrameworkCore\Helpers;
 use Abdslam01\MiniFrameworkCore\Https\Response;
 use Exception;
 use Abdslam01\MiniFrameworkCore\Route;
+use Abdslam01\MiniFrameworkCore\Session;
 
 /**
  * Helpers
@@ -78,6 +79,17 @@ class Helpers {
                 if(!file_exists($path))
                     touch($path);
                 return $path;
+            }
+        }
+
+        if(!function_exists("session")){
+            /**
+             * session
+             *
+             * @return Session
+             */
+            function session(): Session{
+                return SessionHelpers::session();
             }
         }
     }
